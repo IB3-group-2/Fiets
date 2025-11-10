@@ -5141,6 +5141,12 @@
 		(uuid "81c1f7e0-62ff-46c5-8e4c-b3e030385862")
 	)
 	(junction
+		(at 29.21 31.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "83fc23e5-b8a0-4630-a5dd-988918a2c823")
+	)
+	(junction
 		(at 226.06 52.07)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5333,6 +5339,12 @@
 		(uuid "c89ea71e-99b1-4cd5-bc7c-178ee7f70280")
 	)
 	(junction
+		(at 26.67 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cb6f8440-b2b8-49ea-9646-5364dc015882")
+	)
+	(junction
 		(at 234.95 124.46)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5369,10 +5381,26 @@
 		(uuid "f58a65a9-7a72-4a37-84f5-756931111338")
 	)
 	(junction
+		(at 29.21 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f6396915-f445-4e4d-ae7c-abe9ee08fbbf")
+	)
+	(junction
 		(at 121.92 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fe2932ed-af59-4c4a-9b96-f8e61437dec1")
+	)
+	(wire
+		(pts
+			(xy 25.4 49.53) (xy 26.67 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02d5938f-3757-463d-84c6-2ab8f177fb29")
 	)
 	(wire
 		(pts
@@ -5383,6 +5411,16 @@
 			(type default)
 		)
 		(uuid "03f137fc-9da3-4ef6-bcc0-90a2bdc5e283")
+	)
+	(wire
+		(pts
+			(xy 29.21 31.75) (xy 33.02 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "044e2188-f539-47c0-ba32-be8d4e26861d")
 	)
 	(wire
 		(pts
@@ -5496,6 +5534,16 @@
 	)
 	(wire
 		(pts
+			(xy 25.4 52.07) (xy 29.21 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c2a3414-125c-422b-9fec-73a715a39320")
+	)
+	(wire
+		(pts
 			(xy 81.28 184.15) (xy 83.82 184.15)
 		)
 		(stroke
@@ -5586,7 +5634,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 45.72) (xy 29.21 54.61)
+			(xy 29.21 45.72) (xy 29.21 52.07)
 		)
 		(stroke
 			(width 0)
@@ -5816,6 +5864,16 @@
 	)
 	(wire
 		(pts
+			(xy 29.21 31.75) (xy 29.21 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22cd25b6-0ff6-452f-9a5e-fe594e0cde7a")
+	)
+	(wire
+		(pts
 			(xy 55.88 78.74) (xy 63.5 78.74)
 		)
 		(stroke
@@ -5923,6 +5981,16 @@
 			(type default)
 		)
 		(uuid "2a1b5d61-d60a-4ffe-a102-995bcb4195be")
+	)
+	(wire
+		(pts
+			(xy 29.21 52.07) (xy 29.21 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d3ad28b-b100-4d3e-baec-0ec6675a4047")
 	)
 	(wire
 		(pts
@@ -6076,13 +6144,23 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 21.59) (xy 29.21 36.83)
+			(xy 29.21 21.59) (xy 29.21 31.75)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "399cb0c4-c320-4c5d-ada9-fa88b30c8ecf")
+	)
+	(wire
+		(pts
+			(xy 26.67 49.53) (xy 26.67 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "39ef5cf2-aeb4-4f76-bcdc-99f38ec0c346")
 	)
 	(wire
 		(pts
@@ -6686,7 +6764,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 40.64) (xy 29.21 40.64)
+			(xy 25.4 40.64) (xy 26.67 40.64)
 		)
 		(stroke
 			(width 0)
@@ -7976,6 +8054,16 @@
 	)
 	(wire
 		(pts
+			(xy 26.67 40.64) (xy 29.21 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf4d9de0-ac57-4c10-ab47-dd3893b6219b")
+	)
+	(wire
+		(pts
 			(xy 238.76 90.17) (xy 238.76 96.52)
 		)
 		(stroke
@@ -8653,6 +8741,16 @@
 			(type default)
 		)
 		(uuid "f4b9ef86-8337-4e3b-a64d-cf2599d13ea3")
+	)
+	(wire
+		(pts
+			(xy 38.1 31.75) (xy 41.91 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4d63d95-0d82-4338-8bac-327fcedc7e88")
 	)
 	(wire
 		(pts
@@ -12678,6 +12776,76 @@
 		)
 	)
 	(symbol
+		(lib_name "SolderJumper_2_Open_1")
+		(lib_id "Jumper:SolderJumper_2_Open")
+		(at 35.56 31.75 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "5aacc8e2-f9a5-4dba-b94f-ae98936b1401")
+		(property "Reference" "JP5"
+			(at 38.354 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SolderJumper_2_Open"
+			(at 36.8299 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
+			(at 35.56 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 35.56 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Solder Jumper, 2-pole, open"
+			(at 35.56 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3f7927d5-acad-4d17-9989-260e52c0621d")
+		)
+		(pin "2"
+			(uuid "fa67f967-a5a9-45b4-a387-8f42dba5e6fa")
+		)
+		(instances
+			(project "BuckPCB"
+				(path "/091e8063-b3c9-455e-bf2d-57e0600ed10e"
+					(reference "JP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 85.09 149.86 0)
 		(unit 1)
@@ -13175,6 +13343,75 @@
 			(project ""
 				(path "/091e8063-b3c9-455e-bf2d-57e0600ed10e"
 					(reference "Mainboardconnect1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 20.32 52.07 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "72cab858-41a0-41df-bf79-b1bd29faba22")
+		(property "Reference" "POWER_IN2"
+			(at 20.32 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "POWER_IN"
+			(at 20.32 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 20.32 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 20.32 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 20.32 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "feb34026-29d4-4fbd-9185-d8ad05056be6")
+		)
+		(pin "2"
+			(uuid "b279126a-9b6b-48f2-abbc-ca654ff76bb2")
+		)
+		(instances
+			(project "BuckPCB"
+				(path "/091e8063-b3c9-455e-bf2d-57e0600ed10e"
+					(reference "POWER_IN2")
 					(unit 1)
 				)
 			)
