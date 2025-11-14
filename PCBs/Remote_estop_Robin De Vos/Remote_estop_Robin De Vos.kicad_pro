@@ -58,7 +58,12 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "lib_footprint_mismatch|142940000|81345000|a51d7e7e-5f0f-4aed-8530-8c95698af85f|00000000-0000-0000-0000-000000000000",
+          "aanpassing voor vias"
+        ]
+      ],
       "meta": {
         "version": 2
       },
