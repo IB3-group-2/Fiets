@@ -1,0 +1,23 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.5*%
+%TF.CreationDate,2025-11-13T15:13:34+01:00*%
+%TF.ProjectId,Remote_estop_Robin De Vos,52656d6f-7465-45f6-9573-746f705f526f,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Profile,NP*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.5) date 2025-11-13 15:13:34*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,Profile*%
+%ADD10C,0.050000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+X111190000Y-75175000D02*
+X175940000Y-75175000D01*
+X175940000Y-118675000D01*
+X111190000Y-118675000D01*
+X111190000Y-75175000D01*
+M02*
