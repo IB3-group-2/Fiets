@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ESP32 PID Controller</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #1a1a1a; color: white; margin: 0; padding: 10px; }
+        .container { max-width: 600px; margin: auto; background: #2d2d2d; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        #canvas-container { width: 100%; height: 200px; background: #111; border-radius: 15px; margin: 15px 0; border: 1px solid #444; }
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 15px 0; }
+        .data-card { background: #3d3d3d; padding: 10px; border-radius: 10px; border-bottom: 3px solid #00adb5; }
+        .pid-card { border-bottom: 3px solid #3498db; background: #222; grid-column: span 3; padding: 15px; margin-top: 5px; }
+        .label { font-size: 0.7rem; color: #aaa; display: block; text-transform: uppercase; }
+        .value { font-size: 1.2rem; font-weight: bold; font-family: monospace; }
+        .btn-zero { background: #ff4d4d; color: white; border: none; width: 100%; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 15px; }
+        .chart-container { background: #222; padding: 10px; border-radius: 15px; margin: 15px 0; border: 1px solid #444; height: 200px; }
+        .tune-box { border: 2px solid #444; padding: 15px; border-radius: 15px; background: #222; margin-top: 15px; text-align: left; }
+        .slider { width: 100%; margin: 10px 0; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>IMU & PID CONTROL</h2>
+        
+        <div id="canvas-container"></div>
+        <button class="btn-zero" onclick="fetch('/setZero')">Zero All Angles</button>
+
+        <div class="data-grid">
+            <div class="data-card"><span class="label">Pitch</span><span class="value" id="pitch">0</span>°</div>
+            <div class="data-card"><span class="label">Roll</span><span class="value" id="roll">0</span>°</div>
+            <div class="data-card" style="border-color: #f1c40f;"><span class="label">Yaw</span><span class="value" id="yaw">0</span>°</div>
+            <div class="data-card pid-card"><span class="label">PID Output (Target: 0°)</span><span class="value" id="pidVal" style="color:#3498db">0</span></div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="yawChart"></canvas>
+        </div>
+
+        <div class="tune-box">
+            <h3 style="text-align:center; margin-top:0;">LIVE PID TUNING</h3>
+            
+            <label class="label">Kp: <span id="pkp">0.1</span> (Range: 0-20)</label>
+            <input type="range" min="0" max="20" step="0.05" value="0.1" class="slider" id="skp">
+            
+            <label class="label">Ki: <span id="pki">0.0</span> (Range: 0-1)</label>
+            <input type="range" min="0" max="1" step="0.001" value="0.0" class="slider" id="ski">
+            
+            <label class="label">Kd: <span id="pkd">0.0</span> (Range: 0-10)</label>
+            <input type="range" min="0" max="10" step="0.01" value="0.0" class="slider" id="skd">
+        </div>
+
+        <div style="border: 2px solid #444; padding: 15px; border-radius: 15px; background: #222; margin-top:15px;">
+            <h3>THROTTLE: <span id="valM" style="color:#00adb5">1000</span></h3>
+            <input type="range" min="1000" max="2000" value="1000" class="slider" id="sliderM">
+        </div>
+    </div>
+
+    <script>
+        // --- Three.js ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+        const cube = new THREE.Mesh(new THREE.BoxGeometry(3, 0.5, 2), new THREE.MeshNormalMaterial());
+        scene.add(cube);
+        camera.position.z = 5;
+        function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
+        animate();
+
+        // --- Chart.js ---
+        const ctx = document.getElementById('yawChart').getContext('2d');
+        const yawChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    { label: 'Yaw', data: [], borderColor: '#f1c40f', borderWidth: 2, pointRadius: 0, fill: false, yAxisID: 'y' },
+                    { label: 'PID', data: [], borderColor: '#3498db', borderWidth: 2, pointRadius: 0, fill: false, yAxisID: 'yPID' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { display: false },
+                    y: { 
+                        type: 'linear', 
+                        display: true, 
+                        position: 'left',
+                        // --- FIXED RANGE FOR YAW ---
+                        min: -20,
+                        max: 20,
+                        grid: { color: '#444' },
+                        title: { display: true, text: 'Yaw Angle (°)', color: '#f1c40f' }
+                    },
+                    yPID: { 
+                        type: 'linear', 
+                        display: true, 
+                        position: 'right',
+                        // --- FIXED RANGE FOR PID ---
+                        min: -100,
+                        max: 100,
+                        grid: { drawOnChartArea: false }, 
+                        title: { display: true, text: 'PID Output', color: '#3498db' }
+                    }
+                },
+                plugins: { 
+                    legend: { labels: { color: '#fff' } } 
+                }
+            }
+        });
+
+        // --- Loop ---
+        let count = 0;
+        setInterval(() => {
+            fetch('/getAngles').then(r => r.json()).then(data => {
+                document.getElementById('pitch').innerText = data.pitch.toFixed(1);
+                document.getElementById('roll').innerText = data.roll.toFixed(1);
+                document.getElementById('yaw').innerText = data.yaw.toFixed(1);
+                document.getElementById('pidVal').innerText = data.pid.toFixed(2);
+
+                cube.rotation.x = data.pitch * (Math.PI / 180);
+                cube.rotation.y = -data.yaw * (Math.PI / 180); 
+                cube.rotation.z = -data.roll * (Math.PI / 180);
+
+                yawChart.data.labels.push(count++);
+                yawChart.data.datasets[0].data.push(data.yaw);
+                yawChart.data.datasets[1].data.push(data.pid);
+                if (yawChart.data.labels.length > 100) {
+                    yawChart.data.labels.shift();
+                    yawChart.data.datasets[0].data.shift();
+                    yawChart.data.datasets[1].data.shift();
+                }
+                yawChart.update('none');
+            });
+        }, 50);
+
+        // --- Tuning Listeners ---
+        function link(sId, pId, route) {
+            document.getElementById(sId).oninput = function() {
+                document.getElementById(pId).innerText = this.value;
+                fetch(`/${route}?val=${this.value}`);
+            }
+        }
+        link("skp", "pkp", "setKp");
+        link("ski", "pki", "setKi");
+        link("skd", "pkd", "setKd");
+
+        document.getElementById("sliderM").oninput = function() {
+            let v = this.value;
+            document.getElementById("valM").innerText = v;
+            fetch(`/setThrottle?motor=1&val=${v}`);
+            fetch(`/setThrottle?motor=2&val=${v}`);
+        }
+    </script>
+</body>
+</html>
